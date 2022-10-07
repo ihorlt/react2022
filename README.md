@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Projects of Courses selection for students
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
