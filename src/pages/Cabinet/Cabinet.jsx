@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { UserContext } from "../../context/UserContext";
+import Login from "./Login/Login";
+import { firebaseService } from "../../FirebaseService";
 
 const Cabinet = () => {
+    const { user, setUser } = useContext(UserContext);
+    console.log("user", user);
+
+    useEffect(() => {
+        if (firebaseService.auth.currentUser) {
+            setUser({...user, email: firebaseService.auth.currentUser.email, password: "true", auth: firebaseService.auth});
+        }
+    }, []);
+
+    if (user.email.length > 6) {
+        firebaseService.getCourses()
+            .then(courses => console.log("courses", courses));
+    }
     return (
-        <div>
-            Cabinet
+        <div className="container-fluid">
+            {user.email.length > 6 ? user.email.toString() : <Login/> }
         </div>
     );
 };
