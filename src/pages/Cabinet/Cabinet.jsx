@@ -13,13 +13,13 @@ const Cabinet = () => {
         }
     }, []);
 
-    if (user.email.length > 6) {
+    if (user.auth) {
         firebaseService.getCourses()
             .then(courses => console.log("courses", courses));
     }
     return (
         <div className="container-fluid">
-            {user.email.length > 6 ? user.email.toString() : <Login/> }
+            {user.auth ? user.email.toString() : <Login/> }
         </div>
     );
 };

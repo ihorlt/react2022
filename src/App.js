@@ -1,20 +1,23 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserContext } from "./context/UserContext";
 import "./App.css";
 import Menu from "./shared/menu/Menu";
 import Selection from "./pages/Selection/Selection";
 import Cabinet from "./pages/Cabinet/Cabinet";
 import Home from "./pages/Home/Home";
+import {firebaseService} from "./FirebaseService";
 
 
 function App() {
 
     const [user, setUser] = useState({
         email: "",
-        password: "",
+        name: "",
+        surname: "",
+        group: "",
+        groups: [],
         auth: null,
-        firebaseUser: null,
         courses: []
     });
 
@@ -24,6 +27,13 @@ function App() {
         { path: "/home", element: <Home/> },
         { path: "/", element: <Home/> },
     ];
+
+    useEffect(() => {
+        firebaseService.getGroups()
+            .then(groups => {
+                setUser({...user, groups});
+            });
+    }, []);
 
 
   return (
