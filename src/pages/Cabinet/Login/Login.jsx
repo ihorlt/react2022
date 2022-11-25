@@ -67,7 +67,7 @@ const Login = () => {
             if (isError) {
                 return;
             }
-            firebaseService.signup(emailInput, passInput, nameInput, surnameInput, groupInputOptions)
+            firebaseService.signup(emailInput, passInput, nameInput, surnameInput, groupInput)
                 .then(userAuth => {
                     setUser({...user, email: emailInput, group: groupInputOptions, name: nameInput, surname: surnameInput,
                         auth: userAuth});

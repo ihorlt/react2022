@@ -35,16 +35,11 @@ class FirebaseService {
     }
 
     async signup(email, password, name, surname, group) {
-        return await createUserWithEmailAndPassword(this.auth, email, password)
-            .then(async (userCredential) => {
-                const user = userCredential.user;
-                const usersRef = doc(this.db, "iit_users", user.uid);
-                await setDoc(usersRef, { email, name, surname, group, userCredential }, { merge: true });
-                return userCredential;
-            }).catch(err => {
-                console.log("err", err);
-                return err;
-            });
+       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+       const user = userCredential.user;
+       const usersRef = doc(this.db, "iit_users", user.uid);
+       await setDoc(usersRef, { email, name, surname, group, role: "student" }, { merge: true });
+       return userCredential;
     }
 
     async logout() {
