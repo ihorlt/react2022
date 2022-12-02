@@ -82,10 +82,10 @@ const Login = () => {
                         auth: userAuth});
                     firebaseService.saveUser(emailInput, userAuth.user.uid);
                 }).catch((error) => {
-                    setMessage({type: "danger", heading:"Помилка", text: error.code});
+                    setMessage({type: "danger", heading:"Помилка", text: error.message});
                     setIsMessage(true);
                     console.log("code", error.code);
-                    console.log("errors", error.error);
+                    console.log("errors", error.message);
                     console.log(error);
             });
         }
