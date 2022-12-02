@@ -3,6 +3,7 @@ import { UserContext } from "../../../context/UserContext";
 import { Button, Form } from "react-bootstrap";
 import { firebaseService } from "../../../FirebaseService";
 import Message from "../../../shared/message/message";
+import {signInWithEmailAndPassword} from "firebase/auth";
 
 const Login = () => {
     const { user, setUser } = useContext(UserContext);
@@ -80,8 +81,12 @@ const Login = () => {
                     setUser({...user, email: emailInput, group: groupInputOptions, name: nameInput, surname: surnameInput,
                         auth: userAuth});
                     firebaseService.saveUser(emailInput, userAuth.user.uid);
-                }).catch(err => {
-                console.log(err);
+                }).catch((error) => {
+                    setMessage({type: "danger", heading:"Помилка", text: error.code});
+                    setIsMessage(true);
+                    console.log("code", error.code);
+                    console.log("errors", error.error);
+                    console.log(error);
             });
         }
 

@@ -16,6 +16,7 @@ const Menu = () => {
                     firebaseUser: null,
                     courses: []
                 });
+                window.location.href = "/";
             });
     };
 
